@@ -14,6 +14,7 @@ let training_data = [
   {
     inputs: [1,1],
     outputs: [0]
+  }
 ]
 
 let nn;
