@@ -118,7 +118,7 @@ class NeuralNetwork {
     //Feeding forward to generate network
     let nodes = this.feedforward(input_array);
 
-    //calculate erros
+    //calculate errors
     let errors = this.calcErrors(nodes, targets, this.weights);
 
     //calculate gradients from errors
