@@ -27,6 +27,9 @@ function setup() {
 
 		while (won == 0 && moves < 9) {
 
+			console.log(won);
+			console.log(moves)
+
 
 			let move1 = player1s[i].move(boards[i].state);
 

@@ -143,18 +143,12 @@ class NeuralNetwork {
       this.weights[i].add(deltas[i]);
       this.bias[i].add(gradients[i]);
     };
-
-    // outputs.print();
-    // targets.print();
-    // error.print();
   }
 
-  // Adding function for neuro-evolution
   copy() {
     return new NeuralNetwork(this);
   }
 
-  // Accept an arbitrary function for mutation
   mutate(func) {
 
     for (let i = 0; i < this.length-2; i++) {
