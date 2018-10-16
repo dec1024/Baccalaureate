@@ -25,7 +25,7 @@ function setup() {
 
   createCanvas(400, 400);
 
-  nn = new NeuralNetwork([2, 2, 1], 0.1);
+  nn = new NeuralNetwork([2, 10, 10, 1], 0.1);
 };
 function draw() {
 
