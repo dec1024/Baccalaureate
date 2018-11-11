@@ -1,0 +1,10 @@
+{
+  "name": "Baccalaureate",
+  "projects": [
+    "MNIST",
+    “DrawGraphs”,
+    “Flappy”,
+    “Snake”,
+    “TicTacToe”
+  ]
+}

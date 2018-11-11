@@ -25,18 +25,18 @@ function setup() {
 
   createCanvas(400, 400);
 
-  nn = new NeuralNetwork([2, 10, 10, 1], 0.1);
+  nn = new NeuralNetwork([2, 2, 1], 0.1);
 };
 function draw() {
 
   background(0);
 
-  //for (let i = 0; i < 1000; i++) {
-  //  let data = random(training_data);
-//    nn.train(data.inputs, data.outputs);
-  //};
-
   for (let i = 0; i < 1000; i++) {
+    let data = random(training_data);
+    nn.train(data.inputs, data.outputs);
+  };
+
+  /*for (let i = 0; i < 1000; i++) {
     let x = random()
     let y = random()
     let output = 0;
@@ -65,6 +65,8 @@ function draw() {
     nn.train(data[0].inputs, data[0].outputs);
   };
 
+  */
+
   let resolution = 10;
   let cols = width / resolution;
   let rows = height / resolution;
@@ -80,4 +82,11 @@ function draw() {
       rect(i * resolution, j * resolution, resolution, resolution)
     };
   };
+};
+
+function mousePressed() {
+  console.table(nn.weights[0].data);
+  console.table(nn.bias[0].data)
+  console.table(nn.weights[1].data);
+  console.table(nn.bias[1].data);
 };

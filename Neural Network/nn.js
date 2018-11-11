@@ -60,6 +60,7 @@ class NeuralNetwork {
   predict(input_array) {
 
     let inputs = Matrix.fromArray(input_array);
+
     let nodes = this.feedforward(inputs, this.weights, this.bias, this.activation_function.func, this.length);
     return nodes[this.length-1].toArray();
 
@@ -100,7 +101,7 @@ class NeuralNetwork {
     errors[length-2] = Matrix.subtract(targets, nodes[length-1]);
 
     //Transposing the weights maatrix and multipling it by the error matrix of the previous layer
-    //'inverts' the feedforward process and thus assigns an error to each node
+    //'inverts' the feedforward process and thus assigns an error to each node's value
     for (let i = length-2; i > 0; i--) {
       let w_T = Matrix.transpose(weights[i]);
       errors[i-1] = Matrix.multiply(w_T, errors[i])
