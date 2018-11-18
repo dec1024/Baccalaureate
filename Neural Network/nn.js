@@ -13,15 +13,16 @@ let sigmoid = new ActivationFunction(
 );
 
 class NeuralNetwork {
-  constructor(nodes) {
+  constructor(architecture) {
     //Initialise nodes, weights, biases
+    this.architecture = architecture;
     this.nodes = [];
     this.weights = [];
     this.bias = [];
 
     //Copy NN values if passing neural network as argument
-    if (nodes instanceof NeuralNetwork) {
-      let a = nodes;
+    if (architecture instanceof NeuralNetwork) {
+      let a = architecture;
       for (let i = 0; i < a.length-1; i++) {
         this.nodes[i] = a.nodes[i];
         this.weights[i] = a.weights[i].copy();
@@ -33,11 +34,11 @@ class NeuralNetwork {
       this.length = a.length;
 
     } else {
-      this.length = nodes.length;
+      this.length = architecture.length;
 
       //Set node sizes
       for (let i = 0; i < this.length; i++) {
-        this.nodes[i] = nodes[i];
+        this.nodes[i] = architecture[i];
       };
 
       //Create random matrices of dimensions of each layer size for weights and biases
@@ -58,12 +59,9 @@ class NeuralNetwork {
 
   //Generating output layer for given inputs
   predict(input_array) {
-
     let inputs = Matrix.fromArray(input_array);
-
     let nodes = this.feedforward(inputs, this.weights, this.bias, this.activation_function.func, this.length);
     return nodes[this.length-1].toArray();
-
   }
 
   //Feeding forward through each layer in the network
@@ -162,7 +160,29 @@ class NeuralNetwork {
       this.weights[i].add(deltas[i]);
       this.bias[i].add(gradients[i]);
     };
-  }
+  };
+
+  serialize() {
+    return JSON.stringify(this);
+  };
+
+  static deserialize(data) {
+    if (typeof data == 'string') {
+      data = JSON.parse(data);
+    }
+    let nn = new NeuralNetwork(data.architecture);
+
+    //Create random matrices of dimensions of each layer size for weights and biases
+    for (let i = 0; i < nn.length -1; i++) {
+      nn.weights[i].data = data.weights[i].data;
+
+      nn.bias[i].data = data.bias[i].data;
+    };
+
+    nn.learning_rate = data.learning_rate;
+    return nn;
+  };
+
 
   copy() {
     return new NeuralNetwork(this);
